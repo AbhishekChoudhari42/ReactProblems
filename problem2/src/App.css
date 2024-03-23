@@ -1,0 +1,33 @@
+.board{
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    background-color: rgb(240, 240, 240);
+}
+
+.target-box{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #111;
+}
+
+.circle{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.collision{
+    position: fixed;
+    z-index: 50;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: greenyellow;
+    color: rgb(0, 93, 0);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
