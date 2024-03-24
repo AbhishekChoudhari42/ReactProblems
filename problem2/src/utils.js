@@ -3,7 +3,7 @@ export const randomPosition = (start,end,elementWidth) =>{
     return Math.floor(Math.random()*(end-start)) + start
 }
 
-const CIRCLE_STEP = 1
+const CIRCLE_STEP = 10
 
 export const getNextPosition = (currentPos,direction,boardRef) => {
     let xMax = boardRef.current?.offsetWidth 
@@ -25,12 +25,9 @@ export const getNextPosition = (currentPos,direction,boardRef) => {
         
       }
 
-    console.log(newPos,{x:xMax,y:yMax})
     if((newPos?.x >= 0 && (newPos?.x + 25) <= xMax && newPos?.y >= 0 && (newPos?.y + 25) <= yMax)){
         return newPos
     }else{
-       console.log('console')
-        // return newPos
         return currentPos
     }
     

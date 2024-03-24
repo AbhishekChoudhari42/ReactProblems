@@ -8,22 +8,16 @@ const Board = ({targetRef,boardRef,direction,setCollision}) => {
   const [circle, setCircle] = useState({x:0,y:0})
   
   useEffect(()=>{
-    
     setCircle({ 
-      x: randomPosition(boardRef.current.offsetTop,boardRef.current.offsetHeight,25),
-      y: randomPosition(boardRef.current.offsetLeft,boardRef.current?.offsetWidth,25) 
+      x: randomPosition(boardRef.current.offsetTop,boardRef.current.offsetWidth,25),
+      y: randomPosition(boardRef.current.offsetLeft,boardRef.current?.offsetHeight,25) 
     })
-
     targetRef.current.style.top = randomPosition(boardRef.current.offsetTop,boardRef.current.offsetHeight,150)+'px'
     targetRef.current.style.left = randomPosition(boardRef.current.offsetLeft,boardRef.current.offsetWidth,150)+'px'
-
-    
-
   },[])
 
 
   useEffect(()=>{
-    console.log(direction)  
     
     const moveCircle = () => {  
     
@@ -38,7 +32,7 @@ const Board = ({targetRef,boardRef,direction,setCollision}) => {
     
     intervalRef.current = setTimeout(() => {
       moveCircle()
-    }, 10)
+    }, 500)
   
     return () => clearInterval(intervalRef.current)
 
@@ -49,7 +43,6 @@ const Board = ({targetRef,boardRef,direction,setCollision}) => {
       
         <div ref={targetRef} className="target-box">
           {JSON.stringify(circle)}
-          {direction}
         </div>
         <div style={{top:circle?.y+'px',left:circle?.x+'px'}} className="circle">
         </div>
