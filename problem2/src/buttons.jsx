@@ -1,58 +1,42 @@
 import React, { useEffect, useState } from 'react'
 
-const Buttons = ({currentBtn,setCurrentBtn}) => {
+const Buttons = ({direction,setDirection}) => {
 
-  const UP = 'UP', DOWN = 'DOWN', LEFT = 'LEFT', RIGHT = 'RIGHT'
-
+  const UP = 'ArrowUp', DOWN = 'ArrowDown', LEFT = 'ArrowLeft', RIGHT = 'ArrowRight'
 
   const handleMouseDown = (e) => {
-    setCurrentBtn(e.target.name)
+    setDirection(e.target.name)
   }
 
   useEffect(() => {
 
       const handleKeyDown = (e) => {
-        console.log("aaa")
-        if(currentBtn == null){
-          
-          switch (e.key){
-            case 'ArrowUp':
-              setCurrentBtn(UP);
-              break;
-            case 'ArrowDown':
-              setCurrentBtn(DOWN);
-              break;
-            case 'ArrowLeft':
-              setCurrentBtn(LEFT);
-              break;
-            case 'ArrowRight':
-              setCurrentBtn(RIGHT);
-              break;
-          }
-
+        if(direction == null){
+          setDirection(e.key)
         }        
       }
+      
       window.addEventListener('keydown', handleKeyDown)
-      window.addEventListener('keyup',() => setCurrentBtn(null))
+      window.addEventListener('keyup',() => setDirection(null))
 
 
       return ()=> {  
-        window.removeEventListener('keyup',() => setCurrentBtn(null))
         window.removeEventListener('keydown', handleKeyDown)
+        window.removeEventListener('keyup',() => setDirection(null))
       }
   }, [])
 
   return (
     <div className='btn-container'>
       <div className="btn-row">
-        <button name={UP} onMouseUp={()=>setCurrentBtn(null)} onMouseDown={handleMouseDown} className={`${currentBtn == UP ? 'active' : ''}`}>⬆</button>
+        <button name={UP} onMouseUp={()=>setDirection(null)} onMouseDown={handleMouseDown} className={`${direction == UP ? 'active' : ''}`}>⬆</button>
       </div>
       <div className="btn-row">
-        <button name={LEFT} onMouseUp={()=>setCurrentBtn(null)} onMouseDown={handleMouseDown} className={`${currentBtn == LEFT ? 'active' : ''}`}>⬅</button>
-        <button name={RIGHT} onMouseUp={()=>setCurrentBtn(null)} onMouseDown={handleMouseDown} className={`${currentBtn == RIGHT ? 'active' : ''}`}>➡</button>
+        <button name={LEFT} onMouseUp={()=>setDirection(null)} onMouseDown={handleMouseDown} className={`${direction == LEFT ? 'active' : ''}`}>⬅</button>
+        <button name={RIGHT} onMouseUp={()=>setDirection(null)} onMouseDown={handleMouseDown} className={`${direction == RIGHT ? 'active' : ''}`}>➡</button>
       </div>
       <div className="btn-row">
-        <button name={DOWN} onMouseUp={()=>setCurrentBtn(null)} onMouseDown={handleMouseDown} className={`${currentBtn == DOWN ? 'active' : ''}`}>⬇</button>
+        <button name={DOWN} onMouseUp={()=>setDirection(null)} onMouseDown={handleMouseDown} className={`${direction == DOWN ? 'active' : ''}`}>⬇</button>
       </div>
     </div>
   )

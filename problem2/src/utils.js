@@ -1,30 +1,47 @@
 export const randomPosition = (start,end,elementWidth) =>{
-    start = start + elementWidth
     end = end - elementWidth
     return Math.floor(Math.random()*(end-start)) + start
 }
-const CIRCLE_STEP = 10
-export const getNextPosition = (currentPos,direction) => {
-    
+
+const CIRCLE_STEP = 1
+
+export const getNextPosition = (currentPos,direction,boardRef) => {
+    let xMax = boardRef.current?.offsetWidth 
+    let yMax = boardRef.current?.offsetHeight
+    let newPos
     switch (direction){
-        case 'UP':
-          return { ...currentPos, y: currentPos.y - CIRCLE_STEP }
-        case 'DOWN':
-          return { ...currentPos, y: currentPos.y + CIRCLE_STEP }
-        case 'LEFT':
-          return { ...currentPos, x: currentPos.x - CIRCLE_STEP }
-        case 'RIGHT':
-          return { ...currentPos, x: currentPos.x + CIRCLE_STEP }
+        case 'ArrowUp':
+          newPos = { ...currentPos, y: currentPos.y - CIRCLE_STEP }
+          break;
+        case 'ArrowDown':
+          newPos = { ...currentPos, y: currentPos.y + CIRCLE_STEP }
+          break;
+        case 'ArrowLeft':
+          newPos = { ...currentPos, x: currentPos.x - CIRCLE_STEP }
+          break;
+        case 'ArrowRight':
+          newPos = { ...currentPos, x: currentPos.x + CIRCLE_STEP }
+          break;
         
       }
+
+    console.log(newPos,{x:xMax,y:yMax})
+    if((newPos?.x >= 0 && (newPos?.x + 25) <= xMax && newPos?.y >= 0 && (newPos?.y + 25) <= yMax)){
+        return newPos
+    }else{
+       console.log('console')
+        // return newPos
+        return currentPos
+    }
+    
 }
 
-export const isCollision = (objectA,objectA_size,objectB,objectB_size) =>{
+export const isCollision = (objectA,objectB) =>{
 
-    if( objectA.x < objectB.x + objectB_size && 
-        objectA.x + objectA_size > objectB.x &&
-        objectA.y < objectB.y + objectB_size && 
-        objectA.y + objectA_size > objectB.y
+    if( objectA.x < objectB.x + objectB.size && 
+        objectA.x + objectA.size > objectB.x &&
+        objectA.y < objectB.y + objectB.size && 
+        objectA.y + objectA.size > objectB.y
     ){
         return true
     }else{
